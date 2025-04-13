@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  mcp-client-python:
+    build: ./projects/mcp-client-python
+    ports:
+      - "8001:8001"
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - MCP_PYTHON_URL=http://mcp-server-python:8000
+      - MCP_NESTJS_URL=http://mcp-server-nestjs:3000
+    networks:
+      - mcp-network
+
+  mcp-server-python:
+    build: ./projects/mcp-server-python
+    ports:
+      - "8000:8000"
+    networks:
+      - mcp-network
+
+networks:
+  mcp-network:
+    driver: bridge
