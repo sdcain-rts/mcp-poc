@@ -1,6 +1,7 @@
-from fastapi import FastAPI
-from modelcontext.fastapi import create_mcp_app
-from tools.orders import tools
+from mcp.server.fastmcp import FastMCP
+from tools.orders import register_tools
 
-# Create the FastAPI app with MCP tools
-app = create_mcp_app(tools=tools)
+mcp = FastMCP("Orders MCP Server")
+register_tools(mcp)
+
+app = mcp

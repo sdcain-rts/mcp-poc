@@ -1,6 +1,6 @@
 # 🧪 Developer Environment Setup (Nix + direnv)
 
-This project uses a reproducible environment powered by **Nix Flakes**. Once installed, you'll have access to all required tools for local development and Kubernetes workflows.
+This project uses a reproducible environment powered by **Nix Flakes**. Once installed, you'll have access to all required tools for local development.
 
 ---
 
@@ -42,9 +42,9 @@ This will activate the Nix environment via the `.envrc` file.
 
 ---
 
-# MCP Monorepo
+# MCP PoC
 
-This monorepo contains the following projects:
+This repo contains the following projects:
 
 - **MCP Client (Python)**: A FastAPI app that uses LangGraph and OpenAI to call MCP tools.
 - **MCP Server (Python)**: A FastAPI app exposing MCP tools using the modelcontext SDK.
@@ -53,8 +53,10 @@ This monorepo contains the following projects:
 ## Folder Structure
 
 ```
-/Users/shawncain/Documents/repos/mcp-poc
 ├── docker-compose.yml
+├── flake.lock
+├── flake.nix
+├── .envrc
 ├── .env
 ├── README.md
 ├── projects
@@ -62,69 +64,6 @@ This monorepo contains the following projects:
 │   ├── mcp-server-python
 │   └── mcp-server-nestjs
 ```
-
-## Installing UV
-
-To manage dependencies for the MCP projects, we use UV. Follow the instructions below to install UV on your operating system:
-
-### macOS
-1. Open a terminal.
-2. Run the following command to install UV:
-   ```bash
-   curl -LsSf https://astral.sh/uv/install.sh | sh
-   ```
-
-### Linux
-1. Open a terminal.
-2. Run the following command to install UV:
-   ```bash
-   curl -LsSf https://astral.sh/uv/install.sh | sh
-   ```
-
-### Windows
-1. Open PowerShell as Administrator.
-2. Run the following command to install UV:
-   ```powershell
-   powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
-   ```
-
-Once UV is installed, you can navigate to each project directory and run `uv install` to set up the dependencies.
-
-## Using pipx for Dependency Management
-
-To manage Python dependencies for the MCP projects, we recommend using `pipx`. It isolates installations in their own virtual environments, ensuring a clean and manageable setup.
-
-### Installing pipx
-1. Install pipx using Homebrew:
-   ```bash
-   brew install pipx
-   pipx ensurepath
-   ```
-
-2. Verify the installation:
-   ```bash
-   pipx --version
-   ```
-
-### Installing Project Dependencies
-1. Navigate to the project directory (e.g., `mcp-client-python`):
-   ```bash
-   cd projects/mcp-client-python
-   ```
-
-2. Use pipx to install dependencies:
-   ```bash
-   pipx install -r requirements.txt
-   ```
-
-3. Repeat the process for the `mcp-server-python` project:
-   ```bash
-   cd ../mcp-server-python
-   pipx install -r requirements.txt
-   ```
-
-### Notes
-- If you encounter any issues, ensure that `pipx` is added to your PATH by running `pipx ensurepath` again.
 
 ## Build and Run Instructions
 

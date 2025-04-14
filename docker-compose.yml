@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   mcp-client-python:
     build: ./projects/mcp-client-python

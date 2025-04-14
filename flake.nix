@@ -1,25 +1,31 @@
 {
-  description = "MCP POC with Nix Flakes";
-
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "nixpkgs/nixos-unstable";  # Use the latest unstable Nix packages
+    flake-utils.url = "github:numtide/flake-utils";  # Utility functions for easier flake setup
   };
 
-  outputs = { self, nixpkgs }: {
-    devShells.default =
-      let
-        pkgs = import nixpkgs {
-          system = "x86_64-darwin"; # Adjust for your system if needed. For example:
-          # - For Linux: "x86_64-linux"
-          # - For macOS with M chips: "aarch64-darwin"
-          # - For Windows (via WSL or similar): "x86_64-linux"
-        };
-      in pkgs.mkShell {
-        buildInputs = [
-          pkgs.python3
-          pkgs.docker
-          pkgs.direnv
-        ];
+  outputs = {
+    self,
+    nixpkgs,
+    flake-utils,
+  }:
+    flake-utils.lib.eachDefaultSystem (system: let
+      pkgs = import nixpkgs {
+        inherit system;
+        config.allowUnfree = true;  # Allow unfree (proprietary) packages if needed
       };
-  };
+    in
+      with pkgs; {
+        devShells.default = mkShell {
+          buildInputs = [
+            python3
+            python3Packages.pip
+            docker
+            direnv
+          ];
+
+          shellHook = ''
+          '';
+        };
+      });
 }
