@@ -20,8 +20,12 @@
           buildInputs = [
             python3
             python3Packages.pip
+            python3Packages.mkdocs
+            python3Packages.mkdocs-material  # Adding Material theme for mkdocs
+            python3Packages.pymdown-extensions  # Common markdown extensions
             docker
             direnv
+            go-task  # Added go-task (Taskfile runner)
           ];
 
           shellHook = ''

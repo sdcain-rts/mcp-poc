@@ -1,0 +1,42 @@
+version: '3'
+
+tasks:
+  build:
+    desc: Build all Docker containers
+    cmds:
+      - docker-compose build
+
+  up:
+    desc: Start all Docker containers
+    cmds:
+      - docker-compose up -d
+
+  down:
+    desc: Stop all Docker containers
+    cmds:
+      - docker-compose down
+
+  logs:
+    desc: View logs from all containers
+    cmds:
+      - docker-compose logs -f
+    
+  restart:
+    desc: Restart all containers
+    cmds:
+      - docker-compose restart
+      
+  client:build:
+    desc: Build only the MCP client container
+    cmds:
+      - docker-compose build mcp-client-python
+      
+  server-py:build:
+    desc: Build only the MCP Python server container
+    cmds:
+      - docker-compose build mcp-server-python
+
+  ps:
+    desc: List all running containers
+    cmds:
+      - docker-compose ps

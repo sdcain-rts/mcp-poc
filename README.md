@@ -1,83 +1,135 @@
-# 🧪 Developer Environment Setup (Nix + direnv)
+# MCP PoC (Model Context Protocol Proof of Concept)
 
-This project uses a reproducible environment powered by **Nix Flakes**. Once installed, you'll have access to all required tools for local development.
+This project demonstrates a working implementation of the Model Context Protocol, enabling AI models to effectively use tools and contextual information provided by separate services.
 
----
+## Quick Setup
 
-## ✅ Step 1: Install Nix
+### 1. Install Nix
 
-Install Nix from the official site:  
-🔗 https://nixos.org/download/
+<details>
+<summary><b>macOS</b></summary>
 
-For macOS:
-
-    sh <(curl -L https://nixos.org/nix/install)
-
-> After install, **restart your terminal**.
-
----
-
-## ✅ Step 2: Install `direnv`
-
-🔗 https://direnv.net/docs/installation.html
-
-    brew install direnv
-
-Then add the shell hook:
-
-### For Zsh (macOS default)
-
-    echo 'eval "$(direnv hook zsh)"' >> ~/.zshrc
-    source ~/.zshrc
-
----
-
-## ✅ Step 3: Enable the Dev Shell
-
-From the project root:
-
-    direnv allow
-
-This will activate the Nix environment via the `.envrc` file.
-
----
-
-# MCP PoC
-
-This repo contains the following projects:
-
-- **MCP Client (Python)**: A FastAPI app that uses LangGraph and OpenAI to call MCP tools.
-- **MCP Server (Python)**: A FastAPI app exposing MCP tools using the modelcontext SDK.
-- **MCP Server (NestJS)**: A NestJS app exposing additional MCP tools.
-
-## Folder Structure
-
+```bash
+sh <(curl -L https://nixos.org/nix/install)
 ```
-├── docker-compose.yml
-├── flake.lock
-├── flake.nix
-├── .envrc
-├── .env
-├── README.md
-├── projects
-│   ├── mcp-client-python
-│   ├── mcp-server-python
-│   └── mcp-server-nestjs
+After installation, restart your terminal or run:
+```bash
+. ~/.nix-profile/etc/profile.d/nix.sh
+```
+</details>
+
+<details>
+<summary><b>Linux</b></summary>
+
+```bash
+sh <(curl -L https://nixos.org/nix/install) --daemon
+```
+After installation, restart your terminal or run:
+```bash
+. ~/.nix-profile/etc/profile.d/nix.sh
+```
+</details>
+
+<details>
+<summary><b>Windows (WSL2)</b></summary>
+
+First, ensure WSL2 is installed and you have a Linux distribution like Ubuntu.
+
+Then, inside your WSL2 environment:
+```bash
+sh <(curl -L https://nixos.org/nix/install)
+```
+After installation, restart your terminal or run:
+```bash
+. ~/.nix-profile/etc/profile.d/nix.sh
+```
+</details>
+
+### 2. Install direnv
+
+<details>
+<summary><b>macOS</b></summary>
+
+```bash
+brew install direnv
 ```
 
-## Build and Run Instructions
+Add to your shell configuration:
+- **For Zsh (default):**
+  ```bash
+  echo 'eval "$(direnv hook zsh)"' >> ~/.zshrc
+  source ~/.zshrc
+  ```
+- **For Bash:**
+  ```bash
+  echo 'eval "$(direnv hook bash)"' >> ~/.bash_profile
+  source ~/.bash_profile
+  ```
+</details>
 
-1. Build and start all services:
-   ```bash
-   docker-compose up --build
-   ```
+<details>
+<summary><b>Linux</b></summary>
 
-2. Access the services:
-   - MCP Client: [http://localhost:8001](http://localhost:8001)
-   - Python MCP Server: [http://localhost:8000](http://localhost:8000)
-   - NestJS MCP Server: [http://localhost:3000](http://localhost:3000)
+Using package manager:
+```bash
+# For Ubuntu/Debian
+sudo apt-get update && sudo apt-get install direnv
 
-3. Stop the services:
-   ```bash
-   docker-compose down
-   ```
+# For Fedora
+sudo dnf install direnv
+
+# For Arch Linux
+sudo pacman -S direnv
+```
+
+Then add to your shell configuration:
+- **For Bash:**
+  ```bash
+  echo 'eval "$(direnv hook bash)"' >> ~/.bashrc
+  source ~/.bashrc
+  ```
+- **For Zsh:**
+  ```bash
+  echo 'eval "$(direnv hook zsh)"' >> ~/.zshrc
+  source ~/.zshrc
+  ```
+</details>
+
+<details>
+<summary><b>Windows (WSL2)</b></summary>
+
+Inside your WSL2 Linux distribution:
+```bash
+# For Ubuntu/Debian
+sudo apt-get update && sudo apt-get install direnv
+```
+
+Then add to your shell configuration:
+```bash
+# If using Bash
+echo 'eval "$(direnv hook bash)"' >> ~/.bashrc
+source ~/.bashrc
+
+# If using Zsh
+echo 'eval "$(direnv hook zsh)"' >> ~/.zshrc
+source ~/.zshrc
+```
+</details>
+
+### 3. Enable Development Environment
+
+```bash
+direnv allow
+```
+
+The first time you run this, it may take several minutes as Nix downloads and sets up all the required dependencies.
+
+### 4. Run Documentation
+
+Start the documentation server:
+
+```bash
+task docs:serve
+```
+
+Then open [http://127.0.0.1:8000](http://127.0.0.1:8000) in your browser to explore the complete project documentation.

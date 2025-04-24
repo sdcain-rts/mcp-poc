@@ -1,0 +1,55 @@
+version: '3'
+
+vars:
+  TF_DIR: ./infrastructure
+  TF_VAR_environment: dev
+  AWS_PROFILE: default
+
+tasks:
+  init:
+    desc: Initialize Terraform working directory
+    dir: '{{.TF_DIR}}'
+    cmds:
+      - terraform init
+
+  plan:
+    desc: Create Terraform execution plan
+    dir: '{{.TF_DIR}}'
+    cmds:
+      - terraform plan -var-file={{.TF_VAR_environment}}.tfvars -out=tfplan
+    
+  apply:
+    desc: Apply Terraform execution plan
+    dir: '{{.TF_DIR}}'
+    cmds:
+      - terraform apply tfplan
+    
+  destroy:
+    desc: Destroy Terraform-managed infrastructure
+    dir: '{{.TF_DIR}}'
+    cmds:
+      - terraform destroy -var-file={{.TF_VAR_environment}}.tfvars
+      
+  validate:
+    desc: Validate Terraform configuration files
+    dir: '{{.TF_DIR}}'
+    cmds:
+      - terraform validate
+      
+  format:
+    desc: Format Terraform configuration files
+    dir: '{{.TF_DIR}}'
+    cmds:
+      - terraform fmt -recursive
+      
+  workspace:create:
+    desc: Create a new Terraform workspace
+    dir: '{{.TF_DIR}}'
+    cmds:
+      - terraform workspace new {{.CLI_ARGS}}
+      
+  workspace:select:
+    desc: Select a Terraform workspace
+    dir: '{{.TF_DIR}}'
+    cmds:
+      - terraform workspace select {{.CLI_ARGS}}

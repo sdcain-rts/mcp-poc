@@ -1,0 +1,222 @@
+version: '3'
+
+includes:
+  aws: ./Taskfile.aws.yml
+  terraform: ./Taskfile.terraform.yml
+  docker: ./Taskfile.docker.yml
+
+tasks:
+  default:
+    cmds:
+      - task -l
+    desc: Lists all available tasks
+
+  dev:setup:
+    desc: Sets up the development environment
+    cmds:
+      - echo "Setting up development environment..."
+      - direnv allow
+    
+  build:all:
+    desc: Build all services
+    deps: [docker:build]
+    
+  run:all:
+    desc: Run all services
+    deps: [docker:up]
+    
+  stop:all:
+    desc: Stop all services
+    deps: [docker:down]
+    
+  docs:serve:
+    desc: Serve the documentation locally and open in browser
+    cmds:
+      - |
+        # Start mkdocs server in background
+        mkdocs serve --dev-addr=127.0.0.1:8000 &
+        SERVER_PID=$!
+        
+        # Wait a moment for the server to start
+        sleep 2
+        
+        # Open browser based on OS
+        if [ "$(uname)" == "Darwin" ]; then
+          # macOS
+          open http://127.0.0.1:8000
+        elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
+          # Linux - try various commands
+          xdg-open http://127.0.0.1:8000 || sensible-browser http://127.0.0.1:8000 || x-www-browser http://127.0.0.1:8000 || gnome-open http://127.0.0.1:8000 || echo "Please open http://127.0.0.1:8000 in your browser"
+        elif [ "$(expr substr $(uname -s) 1 10)" == "MINGW32_NT" ] || [ "$(expr substr $(uname -s) 1 10)" == "MINGW64_NT" ]; then
+          # Windows via Git Bash
+          start http://127.0.0.1:8000 || echo "Please open http://127.0.0.1:8000 in your browser"
+        else
+          echo "Please open http://127.0.0.1:8000 in your browser"
+        fi
+        
+        # Bring back server process to foreground
+        wait $SERVER_PID
+      
+  docs:build:
+    desc: Build the documentation site
+    cmds:
+      - mkdocs build
+      
+  docs:deploy:
+    desc: Deploy the documentation to GitHub Pages
+    cmds:
+      - mkdocs gh-deploy --force
+      
+  # Frontend Tasks
+  frontend:create:
+    desc: Create a new frontend project (generic)
+    cmds:
+      - echo "Please specify a frontend type: task frontend:create:react, task frontend:create:nextjs, etc."
+      
+  frontend:create:react:
+    desc: Create a new React frontend project
+    cmds:
+      - echo "Creating new React project: {{.CLI_ARGS}}"
+      # Command to be implemented
+      
+  frontend:create:nextjs:
+    desc: Create a new Next.js frontend project
+    cmds:
+      - echo "Creating new Next.js project: {{.CLI_ARGS}}"
+      # Command to be implemented
+      
+  frontend:create:vue:
+    desc: Create a new Vue frontend project
+    cmds:
+      - echo "Creating new Vue project: {{.CLI_ARGS}}"
+      # Command to be implemented
+      
+  frontend:create:angular:
+    desc: Create a new Angular frontend project
+    cmds:
+      - echo "Creating new Angular project: {{.CLI_ARGS}}"
+      # Command to be implemented
+      
+  # Backend Tasks
+  backend:create:
+    desc: Create a new backend project (generic)
+    cmds:
+      - echo "Please specify a backend type: task backend:create:fastapi, task backend:create:nestjs, etc."
+      
+  backend:create:fastapi:
+    desc: Create a new FastAPI backend project
+    cmds:
+      - echo "Creating new FastAPI project: {{.CLI_ARGS}}"
+      # Command to be implemented
+      
+  backend:create:nestjs:
+    desc: Create a new NestJS backend project
+    cmds:
+      - echo "Creating new NestJS project: {{.CLI_ARGS}}"
+      # Command to be implemented
+      
+  backend:create:spring:
+    desc: Create a new Spring Boot backend project
+    cmds:
+      - echo "Creating new Spring Boot project: {{.CLI_ARGS}}"
+      # Command to be implemented
+      
+  backend:create:express:
+    desc: Create a new Express backend project
+    cmds:
+      - echo "Creating new Express project: {{.CLI_ARGS}}"
+      # Command to be implemented
+      
+  # Database Tasks
+  db:create:
+    desc: Create a new database configuration (generic)
+    cmds:
+      - echo "Please specify a database type: task db:create:postgres, task db:create:mongodb, etc."
+      
+  db:create:postgres:
+    desc: Create a PostgreSQL database configuration
+    cmds:
+      - echo "Creating PostgreSQL configuration for: {{.CLI_ARGS}}"
+      # Command to be implemented
+      
+  db:create:mongodb:
+    desc: Create a MongoDB database configuration
+    cmds:
+      - echo "Creating MongoDB configuration for: {{.CLI_ARGS}}"
+      # Command to be implemented
+      
+  db:create:redis:
+    desc: Create a Redis database configuration
+    cmds:
+      - echo "Creating Redis configuration for: {{.CLI_ARGS}}"
+      # Command to be implemented
+      
+  # Liquibase Tasks
+  db:liquibase:init:
+    desc: Initialize Liquibase for a project
+    cmds:
+      - echo "Initializing Liquibase for: {{.CLI_ARGS}}"
+      # Command to be implemented
+      
+  db:liquibase:new:
+    desc: Create a new Liquibase migration
+    cmds:
+      - echo "Creating new migration for: {{.CLI_ARGS}}"
+      # Command to be implemented
+      
+  db:liquibase:update:
+    desc: Apply Liquibase migrations
+    cmds:
+      - echo "Applying migrations for: {{.CLI_ARGS}}"
+      # Command to be implemented
+      
+  db:liquibase:rollback:
+    desc: Roll back Liquibase migrations
+    cmds:
+      - echo "Rolling back migrations for: {{.CLI_ARGS}}"
+      # Command to be implemented
+      
+  # Infrastructure Tasks  
+  infra:create:
+    desc: Create infrastructure templates (generic)
+    cmds:
+      - echo "Please specify a cloud provider: task infra:create:aws, task infra:create:azure, etc."
+      
+  infra:create:aws:
+    desc: Create AWS infrastructure templates
+    cmds:
+      - echo "Creating AWS infrastructure templates for: {{.CLI_ARGS}}"
+      # Command to be implemented
+      
+  infra:create:azure:
+    desc: Create Azure infrastructure templates
+    cmds:
+      - echo "Creating Azure infrastructure templates for: {{.CLI_ARGS}}"
+      # Command to be implemented
+      
+  infra:create:gcp:
+    desc: Create GCP infrastructure templates
+    cmds:
+      - echo "Creating GCP infrastructure templates for: {{.CLI_ARGS}}"
+      # Command to be implemented
+      
+  # Docker Tasks (custom environments)
+  docker:create:dev:
+    desc: Create development Docker Compose environment
+    cmds:
+      - echo "Creating development Docker environment for: {{.CLI_ARGS}}"
+      # Command to be implemented
+      
+  docker:create:prod:
+    desc: Create production Docker Compose environment
+    cmds:
+      - echo "Creating production Docker environment for: {{.CLI_ARGS}}"
+      # Command to be implemented
+      
+  # Helper task for creating a full-stack application
+  create:full-stack:
+    desc: Create a full-stack AI application
+    cmds:
+      - echo "Creating full-stack application: {{.CLI_ARGS}}"
+      - echo "Select options interactively..."
+      # To be implemented with interactive options

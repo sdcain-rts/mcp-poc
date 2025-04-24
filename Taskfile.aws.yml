@@ -1,0 +1,45 @@
+version: '3'
+
+vars:
+  AWS_REGION: us-west-2
+  AWS_PROFILE: default
+
+tasks:
+  configure:
+    desc: Configure AWS CLI with profile and region
+    cmds:
+      - aws configure set region {{.AWS_REGION}} --profile {{.AWS_PROFILE}}
+    
+  list:ecr:
+    desc: List all ECR repositories
+    cmds:
+      - aws ecr describe-repositories --profile {{.AWS_PROFILE}}
+      
+  login:ecr:
+    desc: Login to ECR
+    cmds:
+      - aws ecr get-login-password --region {{.AWS_REGION}} --profile {{.AWS_PROFILE}} | docker login --username AWS --password-stdin $(aws sts get-caller-identity --query 'Account' --output text --profile {{.AWS_PROFILE}}).dkr.ecr.{{.AWS_REGION}}.amazonaws.com
+      
+  create:ecr-repos:
+    desc: Create ECR repositories for all services
+    cmds:
+      - aws ecr create-repository --repository-name mcp-client-python --profile {{.AWS_PROFILE}} || true
+      - aws ecr create-repository --repository-name mcp-server-python --profile {{.AWS_PROFILE}} || true
+      - aws ecr create-repository --repository-name mcp-server-nestjs --profile {{.AWS_PROFILE}} || true
+    
+  deploy:images:
+    desc: Push Docker images to ECR
+    deps: [login:ecr]
+    cmds:
+      - task aws:tag-and-push -- mcp-client-python
+      - task aws:tag-and-push -- mcp-server-python
+      - echo "Deployment of images completed"
+      
+  tag-and-push:
+    internal: true
+    cmds:
+      - |
+        ACCOUNT_ID=$(aws sts get-caller-identity --query 'Account' --output text --profile {{.AWS_PROFILE}})
+        REPO="${ACCOUNT_ID}.dkr.ecr.{{.AWS_REGION}}.amazonaws.com/{{.CLI_ARGS}}"
+        docker tag {{.CLI_ARGS}}:latest ${REPO}:latest
+        docker push ${REPO}:latest

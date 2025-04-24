@@ -1,0 +1,51 @@
+site_name: AI Developer Toolkit
+site_description: Comprehensive toolkit for rapidly building AI solutions
+site_author: AI Toolkit Team
+
+theme:
+  name: material
+  palette:
+    primary: indigo
+    accent: blue
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.sections
+    - navigation.expand
+    - search.suggest
+    - content.code.copy
+
+markdown_extensions:
+  - pymdownx.highlight
+  - pymdownx.superfences
+  - pymdownx.inlinehilite
+  - pymdownx.tabbed
+  - pymdownx.critic
+  - admonition
+  - footnotes
+  - toc:
+      permalink: true
+
+nav:
+  - Home: index.md
+  - Getting Started:
+    - Installation: getting-started/installation.md
+    - Quick Start: getting-started/quick-start.md
+  - Toolkit Components:
+    - Overview: toolkit/overview.md
+    - Frontend Templates: toolkit/frontend-templates.md
+    - Backend Templates: toolkit/backend-templates.md
+    - Database Management: toolkit/database-management.md
+    - Infrastructure: toolkit/infrastructure.md
+  - User Guides:
+    - Creating New Projects: user-guides/creating-projects.md
+    - Database Migrations: user-guides/database-migrations.md
+    - Deploying Solutions: user-guides/deploying.md
+  - Development Guides:
+    - Environment Setup: development-guides/environment-setup.md
+    - Task Runner: development-guides/task-runner.md
+    - Contributing: development-guides/contributing.md
+    - Extending Templates: development-guides/extending-templates.md
+
+plugins:
+  - search
