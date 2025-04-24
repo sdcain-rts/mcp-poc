@@ -1,39 +1,73 @@
 # AI Developer Toolkit
 
-Welcome to the AI Developer Toolkit documentation. This toolkit provides everything you need to rapidly build modern AI-powered solutions.
+Welcome to the AI Developer Toolkit documentation. This toolkit provides a comprehensive set of tools and templates to accelerate development of production-ready AI applications.
 
-## What is the AI Developer Toolkit?
+## Core Toolkit Components
 
-The AI Developer Toolkit is a comprehensive set of templates, tools, and utilities designed to help developers quickly build production-ready AI applications. It provides:
+### Nix
+**Purpose**: Provides reproducible development environments across all platforms.
 
-- **Frontend Templates**: Ready-to-use templates for various frontend frameworks
-- **Backend Templates**: Pre-configured backend services with AI integration capabilities
-- **Database Management**: Tools for database migrations and schema management with Liquibase
-- **Infrastructure as Code**: Terraform templates for cloud deployment
-- **Docker Compose**: Local development environments for all components
-- **Project Scaffolding**: (Coming soon) Hygen templates for generating boilerplate code
+Nix ensures that every developer works with identical tool versions and dependencies regardless of their host OS. It eliminates "it works on my machine" problems by creating isolated, deterministic environments.
 
-## Getting Started
+### direnv
+**Purpose**: Automatically activates your development environment when entering the project directory.
 
-To get started with the toolkit:
+direnv works with Nix to load the correct development environment without manual activation. When you `cd` into your project, the environment is automatically loaded with all required tools.
 
-1. Check the [Installation](getting-started/installation.md) guide
-2. Follow the [Quick Start](getting-started/quick-start.md) tutorial
+### Taskfile
+**Purpose**: Centralizes all project commands in a consistent interface.
 
-## Toolkit Components
+Task (or go-task) simplifies project workflows by providing a uniform command interface. These commands can be used in:
+- Local development
+- CI/CD pipelines
+- Documentation
+- Team onboarding
 
-To understand what's available:
+All commands are run with `task [command]` regardless of the underlying tool or language.
 
-1. Read the [Toolkit Overview](toolkit/overview.md)
-2. Explore the [Frontend Templates](toolkit/frontend-templates.md)
-3. Learn about the [Backend Templates](toolkit/backend-templates.md)
-4. Understand [Database Management](toolkit/database-management.md)
-5. Use the [Infrastructure Templates](toolkit/infrastructure.md)
+### MkDocs
+**Purpose**: Provides beautiful, searchable documentation that lives with your code.
 
-## Development
+MkDocs creates documentation sites that are:
+- Version-controlled alongside your code
+- Easy to update with Markdown
+- Searchable and responsive
+- Automatically deployable to GitHub Pages or other services
 
-For contributors:
+### Terraform
+**Purpose**: Manages cloud infrastructure as code.
 
-1. Set up your [Development Environment](development-guides/environment-setup.md)
-2. Learn to use the [Task Runner](development-guides/task-runner.md) for automation
-3. Find out how to [Extend Templates](development-guides/extending-templates.md)
+Terraform templates allow you to:
+- Define infrastructure in a declarative way
+- Version control your infrastructure alongside your code
+- Deploy consistently across environments (dev, staging, prod)
+- Easily provision AI-specific resources like OpenAI endpoints or vector databases
+
+### Liquibase
+**Purpose**: Manages database schema changes and migrations.
+
+Liquibase provides:
+- Version control for your database schemas
+- Reliable migrations between database versions
+- Rollback capabilities
+- Support for multiple database types
+
+### Docker & Docker Compose
+**Purpose**: Creates consistent environments for development and deployment.
+
+Docker containers ensure that:
+- Development environments match production
+- Dependencies are cleanly isolated
+- Services can be easily composed together
+- Applications deploy consistently across environments
+
+## Toolkit Structure
+
+The AI Developer Toolkit is organized into several components:
+
+1. **Frontend Templates** - Ready-to-use frontend frameworks with AI integration
+2. **Backend Templates** - API servers pre-configured for AI workloads
+3. **Database Management** - Database tools and migration templates
+4. **Infrastructure** - Terraform and Docker templates for deployment
+
+To get started with using these tools together, visit the [Getting Started](getting-started/getting-started.md) guide.

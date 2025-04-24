@@ -28,9 +28,7 @@ markdown_extensions:
 
 nav:
   - Home: index.md
-  - Getting Started:
-    - Installation: getting-started/installation.md
-    - Quick Start: getting-started/quick-start.md
+  - Getting Started: getting-started/getting-started.md
   - Toolkit Components:
     - Overview: toolkit/overview.md
     - Frontend Templates: toolkit/frontend-templates.md
