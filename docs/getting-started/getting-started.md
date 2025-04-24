@@ -25,50 +25,6 @@ The AI Developer Toolkit uses a modular Taskfile structure:
 - `Taskfile.aws.yml` - AWS deployment commands
 - `Taskfile.terraform.yml` - Infrastructure management commands
 
-## Common Tasks
-
-Here are some essential tasks to get started:
-
-### Documentation
-
-```bash
-# Serve documentation locally (opens in browser)
-task docs:serve
-
-# Build documentation site
-task docs:build
-```
-
-### Creating New AI Projects
-
-```bash
-# Create a frontend project (React, Next.js, Vue, Angular)
-task frontend:create:react
-
-# Create a backend project (FastAPI, NestJS, Spring, Express)
-task backend:create:fastapi
-
-# Set up database with Liquibase
-task db:create:postgres
-task db:liquibase:init
-
-# Create cloud infrastructure templates
-task infra:create:aws
-```
-
-### Running Services
-
-```bash
-# Build all services
-task build:all
-
-# Start all services
-task run:all
-
-# Stop all services
-task stop:all
-```
-
 ## Task Structure
 
 Each task follows a standard structure in the YAML files:
@@ -83,42 +39,10 @@ task-name:
     - dependency-task
 ```
 
-## Creating Your First AI Project
-
-Let's walk through creating a simple AI project using the toolkit:
-
-1. **Create a new frontend**: 
-   ```bash
-   task frontend:create:react -- my-ai-app
-   ```
-
-2. **Add a backend API**:
-   ```bash
-   task backend:create:fastapi -- my-ai-api
-   ```
-
-3. **Set up a database with Liquibase**:
-   ```bash
-   task db:create:postgres -- my-ai-app
-   task db:liquibase:init -- my-ai-app
-   ```
-
-4. **Create infrastructure templates**:
-   ```bash
-   task infra:create:aws -- my-ai-app
-   ```
-
-5. **Run the application locally**:
-   ```bash
-   cd my-ai-app
-   task run:all
-   ```
-
 ## Next Steps
 
-Now that you understand the basics of using Taskfile with the AI Developer Toolkit, explore these specific components:
+Now that you understand the basics of using Taskfile with the MCP project, explore these specific aspects:
 
-- [Frontend Templates](../toolkit/frontend-templates.md) - Ready-to-use frontend frameworks
-- [Backend Templates](../toolkit/backend-templates.md) - API servers pre-configured for AI
-- [Database Management](../toolkit/database-management.md) - Database tools and migrations
-- [Infrastructure](../toolkit/infrastructure.md) - Deployment templates
+- [Architecture Overview](../architecture/overview.md) - Understand how MCP components work together
+- [Task Runner](../development-guides/task-runner.md) - Learn more about task management
+- [Contributing](../development-guides/contributing.md) - Guidelines for contributing to the project

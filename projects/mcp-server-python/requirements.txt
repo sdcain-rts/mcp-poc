@@ -1,3 +1,9 @@
-fastapi
-uvicorn
-mcp[cli]
+fastapi>=0.95.0
+uvicorn>=0.22.0
+mcp[cli]>=0.1.0
+pydantic>=1.10.7
+python-dotenv>=1.0.0
+# Testing dependencies
+pytest>=7.3.1
+httpx>=0.24.0
+pytest-asyncio>=0.21.0

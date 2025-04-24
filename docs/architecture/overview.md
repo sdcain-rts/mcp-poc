@@ -1,76 +1,60 @@
-# Architecture Overview
+# Repository Architecture Overview
 
-The Model Context Protocol (MCP) Proof of Concept demonstrates how AI models can interact with external tools provided by different services.
+This document describes the overall architecture and organization of the MCP Proof of Concept repository.
 
-## High-Level Architecture
+## Repository Structure
 
-The project consists of three main components:
-
-1. **MCP Client** - A FastAPI service that processes user messages using LangGraph and OpenAI.
-2. **MCP Python Server** - A FastAPI service exposing tools via the Model Context Protocol.
-3. **MCP NestJS Server** - A NestJS service exposing additional tools.
+The repository is organized into several key directories:
 
 ```
-┌─────────────┐     ┌─────────────────┐     ┌──────────────┐
-│             │     │                 │     │              │
-│    User     │────▶│   MCP Client    │────▶│  OpenAI API  │
-│             │     │   (FastAPI)     │     │              │
-└─────────────┘     └────────┬────────┘     └──────────────┘
-                             │
-                             ▼
-              ┌─────────────────────────────┐
-              │                             │
-              │      MCP Protocol Layer     │
-              │                             │
-              └───────────┬─────────┬───────┘
-                          │         │
-              ┌───────────▼─┐     ┌─▼───────────┐
-              │             │     │             │
-              │ MCP Python  │     │ MCP NestJS  │
-              │   Server    │     │   Server    │
-              │             │     │             │
-              └─────────────┘     └─────────────┘
+mcp-poc/
+├── docs/               # Documentation
+├── projects/           # Web apps, apis, etc
+├── templates/          # Template resources (currently not in use)
+├── Taskfile.yml        # Task management definition files
+└── docker-compose.yml  # Container orchestration
 ```
 
-## Flow of Information
+## Key Directories
 
-1. The user sends a message to the client API.
-2. The client processes the message using a LangGraph agent and OpenAI.
-3. If the model decides to use tools, requests are sent to the appropriate MCP server.
-4. The MCP servers execute the tools and return results.
-5. Results are fed back to the model for further processing.
-6. A final response is returned to the user.
+### Documentation (`docs/`)
 
-## Key Components
+The documentation is built with MkDocs and organized as follows:
 
-### MCP Client
+- `docs/index.md` - Main documentation home page
+- `docs/architecture/` - Architecture documentation including this overview
+- `docs/getting-started/` - Guides for getting started with the project
 
-- Built with FastAPI and LangGraph
-- Manages conversation state
-- Routes tool calls to appropriate MCP servers
-- Communicates with OpenAI API
+Documentation is served using MkDocs with the Material theme and can be accessed by running `task docs:serve`.
 
-### MCP Python Server
+### Projects (`projects/`)
 
-- Built with FastAPI and the modelcontext SDK
-- Exposes tools related to orders and inventory
-- Implements the Model Context Protocol for standardized tool access
+The projects directory contains the actual implementation of the MCP services:
+Each project contains its own Dockerfile for containerization.
 
-### MCP NestJS Server
 
-- Built with NestJS
-- Provides additional tools in a TypeScript/JavaScript environment
-- Demonstrates cross-language interoperability
+## Configuration Files
+
+### Taskfiles
+
+The repository uses [go-task](https://taskfile.dev) for automation through several Taskfiles:
+
+- `Taskfile.yml` - Main entry point with core commands
+- `Taskfile.docker.yml` - Docker-related commands
+- `Taskfile.aws.yml` - AWS deployment commands
+- `Taskfile.terraform.yml` - Infrastructure management commands
+
+### Nix Configuration
+
+The repository uses Nix for reproducible development environments:
+
+- `flake.nix` - Defines the development environment
+- `flake.lock` - Locks dependencies to specific versions
+
+### Docker Composition
+
+- `docker-compose.yml` - Defines the services and their relationships
 
 ## Network Architecture
 
-In Docker, the services communicate over a dedicated Docker network:
-
-- MCP Client Python: Port 8001
-- MCP Server Python: Port 8000
-- MCP Server NestJS: Port 3000
-
-## Next Steps
-
-- Learn more about the [Components](components.md) in detail
-- Understand the [MCP Protocol](mcp-protocol.md) specification
+In Docker, the services communicate over a dedicated Docker network

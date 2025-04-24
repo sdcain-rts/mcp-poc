@@ -2,7 +2,7 @@
 
 Welcome to the AI Developer Toolkit documentation. This toolkit provides a comprehensive set of tools and templates to accelerate development of production-ready AI applications.
 
-## Core Toolkit Components
+## Core Components
 
 ### Nix
 **Purpose**: Provides reproducible development environments across all platforms.
@@ -34,24 +34,6 @@ MkDocs creates documentation sites that are:
 - Searchable and responsive
 - Automatically deployable to GitHub Pages or other services
 
-### Terraform
-**Purpose**: Manages cloud infrastructure as code.
-
-Terraform templates allow you to:
-- Define infrastructure in a declarative way
-- Version control your infrastructure alongside your code
-- Deploy consistently across environments (dev, staging, prod)
-- Easily provision AI-specific resources like OpenAI endpoints or vector databases
-
-### Liquibase
-**Purpose**: Manages database schema changes and migrations.
-
-Liquibase provides:
-- Version control for your database schemas
-- Reliable migrations between database versions
-- Rollback capabilities
-- Support for multiple database types
-
 ### Docker & Docker Compose
 **Purpose**: Creates consistent environments for development and deployment.
 
@@ -60,14 +42,3 @@ Docker containers ensure that:
 - Dependencies are cleanly isolated
 - Services can be easily composed together
 - Applications deploy consistently across environments
-
-## Toolkit Structure
-
-The AI Developer Toolkit is organized into several components:
-
-1. **Frontend Templates** - Ready-to-use frontend frameworks with AI integration
-2. **Backend Templates** - API servers pre-configured for AI workloads
-3. **Database Management** - Database tools and migration templates
-4. **Infrastructure** - Terraform and Docker templates for deployment
-
-To get started with using these tools together, visit the [Getting Started](getting-started/getting-started.md) guide.

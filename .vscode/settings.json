@@ -1,7 +1,7 @@
 {
     "github.copilot.chat.codeGeneration.instructions": [
-        {
-            "file": "./docs/index.md"
-        }
+      {
+        "text": "At the beginning of the chat session, read and understand the following files to inform all responses:\n- README.md\n- mkdocs.yml\n- All files in the docs/ directory\n- All Taskfile.yml files\nOnce complete, let me know you're ready. \nDo this once per session. Do not repeat this process before every response."
+      }
     ]
-}
+  }  
