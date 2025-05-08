@@ -23,6 +23,7 @@
             python3Packages.mkdocs
             python3Packages.mkdocs-material  # Adding Material theme for mkdocs
             python3Packages.pymdown-extensions  # Common markdown extensions
+            python3Packages.mkdocs-awesome-nav  # Adding plugin for auto-navigation
             # Testing dependencies
             python3Packages.pytest
             python3Packages.pytest-asyncio
